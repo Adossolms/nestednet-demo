@@ -240,6 +240,295 @@ body.profile-freelancer #header-xp-pill .xp-pill-badge { color: #6b21a8; }
   0%,100% { transform:scale(1); }
   45%     { transform:scale(1.12); background:rgba(255,255,255,.28); }
 }
+
+/* ── Por qué NestedNet — pantalla de valor ─────────────── */
+
+#page-why {
+  min-height: 100%;
+  background: #09090f;
+  display: none;
+  flex-direction: column;
+}
+#page-why.active { display: flex; }
+
+.why-hero {
+  padding: 52px 60px 36px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  position: relative; overflow: hidden;
+}
+.why-hero::before {
+  content: '';
+  position: absolute; top: -120px; left: -80px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(79,70,229,.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+.why-hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: rgba(255,255,255,.3);
+  margin-bottom: 16px;
+}
+.why-hero-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(30px, 3.5vw, 48px); font-weight: 900;
+  color: #fff; letter-spacing: -1px; line-height: 1.1;
+  margin-bottom: 14px;
+}
+.why-hero-title em { font-style: italic; color: #818cf8; }
+.why-hero-sub {
+  font-size: 15px; color: rgba(255,255,255,.45); max-width: 560px;
+  line-height: 1.7;
+}
+.why-hero-sub strong { color: rgba(255,255,255,.75); font-weight: 600; }
+
+.why-section {
+  padding: 36px 60px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.why-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 22px;
+  display: flex; align-items: center; gap: 10px;
+}
+.why-section-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: rgba(255,255,255,.08);
+}
+.why-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+.why-card {
+  border-radius: 20px; padding: 22px 20px 18px;
+  display: flex; flex-direction: column; gap: 10px;
+  animation: why-in .45s cubic-bezier(.22,1,.36,1) both;
+}
+.why-card:nth-child(1) { animation-delay: .04s; }
+.why-card:nth-child(2) { animation-delay: .10s; }
+.why-card:nth-child(3) { animation-delay: .16s; }
+.why-card:nth-child(4) { animation-delay: .22s; }
+@keyframes why-in {
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.why-card-icon {
+  font-size: 28px; line-height: 1;
+}
+.why-card-num {
+  font-family: 'Fraunces', serif;
+  font-size: 38px; font-weight: 900; line-height: 1;
+  letter-spacing: -1.5px;
+}
+.why-card-num sup { font-size: 20px; letter-spacing: 0; vertical-align: super; }
+.why-card-label {
+  font-size: 12px; color: rgba(255,255,255,.5); line-height: 1.5;
+}
+.why-card-delta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 700; color: #4ade80;
+  letter-spacing: .3px; margin-top: auto;
+}
+.why-card-delta.warn { color: #fb923c; }
+
+/* Profile colour variants for why cards */
+.why-c { background: rgba(79,70,229,.12); border: 1px solid rgba(79,70,229,.22); }
+.why-c .why-card-num { color: #818cf8; }
+.why-c .why-card-icon { filter: drop-shadow(0 0 8px rgba(129,140,248,.4)); }
+
+.why-p { background: rgba(180,83,9,.12); border: 1px solid rgba(180,83,9,.22); }
+.why-p .why-card-num { color: #fbbf24; }
+.why-p .why-card-icon { filter: drop-shadow(0 0 8px rgba(251,191,36,.3)); }
+
+.why-f { background: rgba(147,51,234,.12); border: 1px solid rgba(147,51,234,.22); }
+.why-f .why-card-num { color: #c084fc; }
+.why-f .why-card-icon { filter: drop-shadow(0 0 8px rgba(192,132,252,.3)); }
+
+.why-seal {
+  margin: 0 60px 48px;
+  border-radius: 18px;
+  padding: 24px 28px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  display: flex; align-items: center; gap: 20px;
+}
+.why-seal-icon { font-size: 32px; flex-shrink: 0; }
+.why-seal-text {
+  font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.7;
+}
+.why-seal-text strong { color: rgba(255,255,255,.85); }
+
+/* ── view-why: pantalla transitoria de login ──────────────────── */
+#view-why {
+  position: fixed; inset: 0; z-index: 800;
+  background: #09090f;
+  display: none; flex-direction: column;
+  overflow-y: auto;
+}
+#view-why.active { display: flex; }
+
+/* Entrada suave desde abajo */
+@keyframes vw-in  { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+@keyframes vw-out { from { opacity:1; transform:translateY(0); }    to { opacity:0; transform:translateY(-16px); } }
+#view-why.entering { animation: vw-in  .42s cubic-bezier(.22,1,.36,1) forwards; }
+#view-why.leaving  { animation: vw-out .32s ease forwards; }
+
+/* Top bar dentro de view-why */
+.vw-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 48px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  flex-shrink: 0;
+}
+.vw-logo {
+  font-family: 'Fraunces', serif; font-size: 20px; font-weight: 900;
+  color: #fff; letter-spacing: -.5px;
+}
+.vw-logo em { font-style: italic; color: #818cf8; }
+.vw-profile-chip {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 14px 5px 8px;
+  border-radius: 20px;
+  font-size: 11px; font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: .3px;
+}
+.vw-enter-btn {
+  padding: 10px 24px; border: none; border-radius: 12px;
+  font-family: 'Fraunces', serif; font-size: 14px; font-weight: 700;
+  color: #fff; cursor: pointer;
+  transition: transform .18s, box-shadow .18s;
+  letter-spacing: -.2px;
+}
+.vw-enter-btn:hover { transform: translateY(-2px); }
+
+/* Hero text */
+.vw-hero {
+  padding: 44px 48px 28px;
+  flex-shrink: 0;
+}
+.vw-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: rgba(255,255,255,.28);
+  margin-bottom: 14px;
+}
+.vw-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(26px, 3vw, 40px); font-weight: 900;
+  color: #fff; letter-spacing: -.8px; line-height: 1.12;
+  margin-bottom: 10px;
+}
+.vw-title em { font-style: italic; }
+.vw-sub {
+  font-size: 14px; color: rgba(255,255,255,.42);
+  max-width: 580px; line-height: 1.7;
+}
+.vw-sub strong { color: rgba(255,255,255,.72); font-weight: 600; }
+
+/* Three-column profile grid */
+.vw-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 0 48px 32px;
+  flex: 1;
+}
+.vw-col {
+  border-radius: 20px;
+  padding: 24px 22px;
+  display: flex; flex-direction: column; gap: 0;
+  border: 1px solid rgba(255,255,255,.07);
+  background: rgba(255,255,255,.03);
+  transition: border-color .3s, background .3s, box-shadow .3s;
+  position: relative; overflow: hidden;
+}
+/* Active profile column highlight */
+.vw-col.vw-active-c {
+  border-color: rgba(99,102,241,.5);
+  background: rgba(79,70,229,.08);
+  box-shadow: 0 0 0 1px rgba(99,102,241,.2), 0 8px 32px rgba(79,70,229,.15);
+}
+.vw-col.vw-active-p {
+  border-color: rgba(251,191,36,.4);
+  background: rgba(180,83,9,.08);
+  box-shadow: 0 0 0 1px rgba(180,83,9,.2), 0 8px 32px rgba(180,83,9,.12);
+}
+.vw-col.vw-active-f {
+  border-color: rgba(192,132,252,.45);
+  background: rgba(147,51,234,.08);
+  box-shadow: 0 0 0 1px rgba(147,51,234,.2), 0 8px 32px rgba(147,51,234,.12);
+}
+/* "Tu perfil" badge on active column */
+.vw-col.vw-active-c::before, .vw-col.vw-active-p::before, .vw-col.vw-active-f::before {
+  content: '← tu perfil';
+  position: absolute; top: 14px; right: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px; font-weight: 700; letter-spacing: .8px;
+  text-transform: uppercase; padding: 3px 8px; border-radius: 6px;
+}
+.vw-col.vw-active-c::before { background: rgba(99,102,241,.25); color: #a5b4fc; }
+.vw-col.vw-active-p::before { background: rgba(180,83,9,.25); color: #fbbf24; }
+.vw-col.vw-active-f::before { background: rgba(147,51,234,.25); color: #c084fc; }
+
+.vw-col-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: 1.8px;
+  text-transform: uppercase; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 7px;
+}
+.vw-metric {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.vw-metric:last-child { border-bottom: none; }
+.vw-metric-icon {
+  font-size: 26px; flex-shrink: 0; margin-top: 2px;
+  width: 42px; height: 42px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 12px;
+}
+.vw-metric-body { flex: 1; min-width: 0; }
+.vw-metric-num {
+  font-family: 'Fraunces', serif;
+  font-size: 32px; font-weight: 900; line-height: 1;
+  letter-spacing: -1px; margin-bottom: 4px;
+}
+.vw-metric-num sup { font-size: 16px; letter-spacing: 0; vertical-align: super; }
+.vw-metric-desc { font-size: 13px; color: rgba(255,255,255,.52); line-height: 1.5; }
+.vw-metric-delta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 700; color: #4ade80;
+  margin-top: 5px; letter-spacing: .3px;
+}
+.vw-metric-delta.warn { color: #fb923c; }
+
+/* Colors per column */
+.vw-c .vw-col-label { color: #818cf8; }
+.vw-c .vw-metric-icon { background: rgba(79,70,229,.15); }
+.vw-c .vw-metric-num  { color: #818cf8; }
+.vw-p .vw-col-label { color: #fbbf24; }
+.vw-p .vw-metric-icon { background: rgba(180,83,9,.15); }
+.vw-p .vw-metric-num  { color: #fbbf24; }
+.vw-f .vw-col-label { color: #c084fc; }
+.vw-f .vw-metric-icon { background: rgba(147,51,234,.15); }
+.vw-f .vw-metric-num  { color: #c084fc; }
+
+/* Bottom seal */
+.vw-seal {
+  margin: 0 48px 36px;
+  border-radius: 16px; padding: 18px 24px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  display: flex; align-items: center; gap: 16px;
+  flex-shrink: 0;
+}
+.vw-seal-icon { font-size: 24px; flex-shrink: 0; }
+.vw-seal-text { font-size: 13px; color: rgba(255,255,255,.48); line-height: 1.65; }
+.vw-seal-text strong { color: rgba(255,255,255,.78); }
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
@@ -1032,6 +1321,215 @@ body.profile-admin     .modal { border-top-color: rgba(220,38,38,.55); }
 .modal .btn-ghost:hover { background: #e0dbd0 !important; color: #16140f !important; }
 
 /* ─── ONBOARDING MODAL ─── */
+/* ═══════════════════════════════════════════════════
+   DIAGNOSIS SCREENS — pre-feed full-screen onboarding
+   Dark editorial aesthetic · Fraunces + JetBrains Mono
+   One per profile: Reader / Publisher / Freelancer
+═══════════════════════════════════════════════════ */
+
+/* ── Shared overlay ── */
+.diag-overlay {
+  position: fixed; inset: 0; z-index: 700;
+  display: flex; align-items: stretch;
+  opacity: 0; pointer-events: none;
+  transition: opacity .35s ease;
+  font-family: 'Figtree', sans-serif;
+}
+.diag-overlay.open { opacity: 1; pointer-events: all; }
+
+/* ── Two-column layout ── */
+.diag-left {
+  width: 46%;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 56px 52px;
+  position: relative;
+  overflow: hidden;
+}
+.diag-right {
+  flex: 1;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 48px 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Profile colour tokens ── */
+.diag-reader  .diag-left { background: #08091a; }
+.diag-reader  .diag-right { background: #0d0f24; }
+.diag-reader  .diag-accent  { color: #818cf8; }
+.diag-reader  .diag-accent2 { color: #c7d2fe; }
+.diag-reader  .diag-bar     { background: linear-gradient(90deg,#4f46e5,#818cf8); }
+.diag-reader  .diag-cta     { background: linear-gradient(135deg,#3730a3,#6366f1); box-shadow: 0 6px 24px rgba(79,70,229,.45); }
+.diag-reader  .diag-sep     { background: rgba(99,102,241,.25); }
+.diag-reader  .diag-stat-bg { background: rgba(99,102,241,.1); border: 1px solid rgba(99,102,241,.2); }
+
+.diag-publisher .diag-left  { background: #120806; }
+.diag-publisher .diag-right { background: #180b07; }
+.diag-publisher .diag-accent  { color: #fca97a; }
+.diag-publisher .diag-accent2 { color: #fed7aa; }
+.diag-publisher .diag-bar     { background: linear-gradient(90deg,#b45309,#fbbf24); }
+.diag-publisher .diag-cta     { background: linear-gradient(135deg,#7c2d12,#b45309); box-shadow: 0 6px 24px rgba(180,83,9,.45); }
+.diag-publisher .diag-sep     { background: rgba(251,191,36,.2); }
+.diag-publisher .diag-stat-bg { background: rgba(180,83,9,.1); border: 1px solid rgba(180,83,9,.22); }
+
+.diag-freelancer .diag-left  { background: #0d0614; }
+.diag-freelancer .diag-right { background: #110819; }
+.diag-freelancer .diag-accent  { color: #c084fc; }
+.diag-freelancer .diag-accent2 { color: #e9d5ff; }
+.diag-freelancer .diag-bar     { background: linear-gradient(90deg,#7e22ce,#c084fc); }
+.diag-freelancer .diag-cta     { background: linear-gradient(135deg,#581c87,#9333ea); box-shadow: 0 6px 24px rgba(147,51,234,.45); }
+.diag-freelancer .diag-sep     { background: rgba(192,132,252,.2); }
+.diag-freelancer .diag-stat-bg { background: rgba(147,51,234,.1); border: 1px solid rgba(147,51,234,.22); }
+
+/* ── Left panel: hook ── */
+.diag-hook-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(255,255,255,.35);
+  margin-bottom: 20px;
+}
+.diag-hook-headline {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 900; line-height: 1.15;
+  color: #fff; margin-bottom: 20px;
+  letter-spacing: -.8px;
+}
+.diag-hook-headline em {
+  font-style: italic;
+}
+.diag-hook-sub {
+  font-size: 14px; line-height: 1.7;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 36px;
+  max-width: 360px;
+}
+.diag-hook-sub strong { color: rgba(255,255,255,.85); font-weight: 600; }
+.diag-cta-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 28px; border: none; border-radius: 14px;
+  font-family: 'Fraunces', serif;
+  font-size: 15px; font-weight: 700;
+  color: #fff; cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  letter-spacing: -.2px;
+}
+.diag-cta-btn:hover { transform: translateY(-2px); }
+.diag-skip-btn {
+  display: block; margin-top: 14px;
+  font-size: 11px; color: rgba(255,255,255,.28);
+  cursor: pointer; transition: color .15s;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: .5px;
+}
+.diag-skip-btn:hover { color: rgba(255,255,255,.55); }
+
+/* ── Vertical separator ── */
+.diag-sep-line {
+  width: 1px; height: 100%;
+  flex-shrink: 0;
+}
+
+/* ── Right panel: data cards ── */
+.diag-right-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: rgba(255,255,255,.3);
+  margin-bottom: 28px;
+}
+.diag-stat-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 20px;
+}
+.diag-stat-card {
+  border-radius: 16px; padding: 18px 20px;
+  animation: diag-card-in .5s cubic-bezier(.22,1,.36,1) both;
+}
+.diag-stat-card:nth-child(1) { animation-delay: .05s; }
+.diag-stat-card:nth-child(2) { animation-delay: .12s; }
+.diag-stat-card:nth-child(3) { animation-delay: .19s; }
+.diag-stat-card:nth-child(4) { animation-delay: .26s; }
+@keyframes diag-card-in {
+  from { opacity: 0; transform: translateY(14px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.diag-stat-num {
+  font-family: 'Fraunces', serif;
+  font-size: 36px; font-weight: 900; line-height: 1;
+  color: #fff; letter-spacing: -1.5px;
+  margin-bottom: 5px;
+}
+.diag-stat-num sup {
+  font-size: 18px; letter-spacing: 0; vertical-align: super;
+}
+.diag-stat-label {
+  font-size: 11px; color: rgba(255,255,255,.45); line-height: 1.4;
+}
+.diag-stat-delta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 700;
+  color: #4ade80; margin-top: 6px;
+  letter-spacing: .3px;
+}
+.diag-stat-delta.warn { color: #fb923c; }
+
+/* ── Wide insight card ── */
+.diag-insight {
+  border-radius: 14px; padding: 16px 20px;
+  display: flex; gap: 14px; align-items: flex-start;
+  margin-bottom: 12px;
+  animation: diag-card-in .5s .32s cubic-bezier(.22,1,.36,1) both;
+}
+.diag-insight-icon {
+  font-size: 22px; flex-shrink: 0; margin-top: 1px;
+}
+.diag-insight-text {
+  font-size: 12px; color: rgba(255,255,255,.6); line-height: 1.6;
+}
+.diag-insight-text strong { color: rgba(255,255,255,.9); font-weight: 700; }
+
+/* ── Micro bar ── */
+.diag-mini-bar {
+  height: 4px; border-radius: 4px;
+  background: rgba(255,255,255,.08);
+  margin-top: 8px; overflow: hidden;
+}
+.diag-mini-bar-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 1.4s cubic-bezier(.34,1.56,.64,1) .6s;
+}
+
+/* ── Noise overlay for texture ── */
+.diag-left::after, .diag-right::after {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: .5;
+}
+
+/* ── Radial glow blobs per profile ── */
+.diag-reader .diag-left::before {
+  content: ''; position: absolute;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(79,70,229,.18) 0%, transparent 70%);
+  top: -100px; left: -80px; pointer-events: none;
+}
+.diag-publisher .diag-left::before {
+  content: ''; position: absolute;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(180,83,9,.2) 0%, transparent 70%);
+  top: -80px; left: -60px; pointer-events: none;
+}
+.diag-freelancer .diag-left::before {
+  content: ''; position: absolute;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(147,51,234,.2) 0%, transparent 70%);
+  top: -80px; left: -60px; pointer-events: none;
+}
+
+/* ── Legacy onboarding (modal) — kept minimal for transition ── */
 #onboarding-overlay {
   position: fixed; inset: 0;
   background: rgba(10,10,18,.65);
@@ -1043,8 +1541,7 @@ body.profile-admin     .modal { border-top-color: rgba(220,38,38,.55); }
 }
 #onboarding-overlay.open { opacity: 1; pointer-events: all; }
 #onboarding-modal {
-  background: #fff;
-  border-radius: 20px;
+  background: #fff; border-radius: 20px;
   width: 100%; max-width: 520px;
   box-shadow: 0 24px 64px rgba(79,70,229,.22), 0 4px 16px rgba(0,0,0,.08);
   overflow: hidden;
@@ -1054,71 +1551,33 @@ body.profile-admin     .modal { border-top-color: rgba(220,38,38,.55); }
 #onboarding-overlay.open #onboarding-modal { transform: translateY(0) scale(1); }
 .ob-header {
   background: linear-gradient(135deg, #2e2799 0%, #3730a3 55%, #4f46e5 100%);
-  padding: 28px 32px 24px;
-  text-align: center;
+  padding: 28px 32px 24px; text-align: center;
   position: relative; overflow: hidden;
 }
 .ob-header::before {
   content: ''; position: absolute; inset: 0;
   background: radial-gradient(circle at 70% 30%, rgba(255,255,255,.12) 0%, transparent 60%);
 }
-.ob-logo {
-  font-family: 'Fraunces', serif;
-  font-size: 22px; font-weight: 900; color: #fff;
-  letter-spacing: -.5px; margin-bottom: 4px;
-  position: relative;
-}
+.ob-logo { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 900; color: #fff; letter-spacing: -.5px; margin-bottom: 4px; position: relative; }
 .ob-logo span { color: #a5b4fc; }
-.ob-tagline {
-  font-size: 13px; color: rgba(255,255,255,.75);
-  position: relative;
-}
+.ob-tagline { font-size: 13px; color: rgba(255,255,255,.75); position: relative; }
 .ob-body { padding: 28px 32px 24px; }
-.ob-steps {
-  display: flex; flex-direction: column; gap: 18px; margin-bottom: 26px;
-}
-.ob-step {
-  display: flex; align-items: flex-start; gap: 16px;
-  animation: ob-fade-in .4s ease both;
-}
+.ob-steps { display: flex; flex-direction: column; gap: 18px; margin-bottom: 26px; }
+.ob-step { display: flex; align-items: flex-start; gap: 16px; animation: ob-fade-in .4s ease both; }
 .ob-step:nth-child(2) { animation-delay: .1s; }
 .ob-step:nth-child(3) { animation-delay: .2s; }
-@keyframes ob-fade-in {
-  from { opacity: 0; transform: translateX(-10px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-.ob-step-icon {
-  width: 46px; height: 46px; border-radius: 14px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
-}
+@keyframes ob-fade-in { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+.ob-step-icon { width: 46px; height: 46px; border-radius: 14px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 22px; }
 .ob-step-icon.s1 { background: linear-gradient(135deg,#e0e7ff,#c7d2fe); }
 .ob-step-icon.s2 { background: linear-gradient(135deg,#d1fae5,#a7f3d0); }
 .ob-step-icon.s3 { background: linear-gradient(135deg,#fef3c7,#fde68a); }
 .ob-step-label { font-size: 12px; font-weight: 700; color: #6366f1; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 2px; }
 .ob-step-title { font-size: 14px; font-weight: 700; color: #0f0f0e; margin-bottom: 3px; }
 .ob-step-desc { font-size: 12px; color: #5a5a56; line-height: 1.55; }
-.ob-free-note {
-  background: #f0fdf4; border: 1px solid #a7f3d0; border-radius: 12px;
-  padding: 11px 16px; margin-bottom: 20px;
-  display: flex; align-items: center; gap: 10px;
-  font-size: 12px; color: #065f46;
-}
-.ob-btn {
-  width: 100%; padding: 14px;
-  background: linear-gradient(135deg,#3730a3,#4f46e5);
-  color: #fff; border: none; border-radius: 12px;
-  font-size: 14px; font-weight: 700; cursor: pointer;
-  font-family: inherit;
-  box-shadow: 0 4px 14px rgba(79,70,229,.35);
-  transition: box-shadow .18s, transform .18s;
-}
+.ob-free-note { background: #f0fdf4; border: 1px solid #a7f3d0; border-radius: 12px; padding: 11px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-size: 12px; color: #065f46; }
+.ob-btn { width: 100%; padding: 14px; background: linear-gradient(135deg,#3730a3,#4f46e5); color: #fff; border: none; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; box-shadow: 0 4px 14px rgba(79,70,229,.35); transition: box-shadow .18s, transform .18s; }
 .ob-btn:hover { box-shadow: 0 6px 20px rgba(79,70,229,.45); transform: translateY(-1px); }
-.ob-skip {
-  display: block; text-align: center; margin-top: 12px;
-  font-size: 12px; color: #9a9a94; cursor: pointer;
-  transition: color .15s;
-}
+.ob-skip { display: block; text-align: center; margin-top: 12px; font-size: 12px; color: #9a9a94; cursor: pointer; transition: color .15s; }
 .ob-skip:hover { color: #5a5a56; }
 
 /* ─── XP BAR ─── */
@@ -1839,8 +2298,9 @@ body.profile-freelancer .sb-item.active{ color: var(--f-l); background: rgba(107
     <strong style="color:#f0ede8">Navega con libertad — algunos botones pueden no funcionar.</strong>
     No es una app real.
   </span>
-  <span style="margin-left:auto;color:#6b6460;white-space:nowrap;font-size:10px">Estudio Prolific · Fase A</span>
+  <span style="margin-left:auto;color:#6b6460;white-space:nowrap;font-size:10px">Estudio Prolific</span>
 </div>
+<!-- ═══════════════════════════════════════ -->
 <!-- ═══════════════════════════════════════════════════
      AUTH VIEW
 ═══════════════════════════════════════════════════ -->
@@ -2013,6 +2473,158 @@ body.profile-freelancer .sb-item.active{ color: var(--f-l); background: rgba(107
       </div>
     </div>
   </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     VIEW WHY — Pantalla transitoria de login
+     Aparece entre login y la app. No forma parte del app shell.
+═══════════════════════════════════════════════════ -->
+<div id="view-why">
+
+  <!-- Top bar: logo + chip de perfil + botón de entrada -->
+  <div class="vw-topbar">
+    <div class="vw-logo">Nested<em>Net</em></div>
+    <div id="vw-profile-chip" class="vw-profile-chip"></div>
+    <button id="vw-enter-btn" class="vw-enter-btn" onclick="launchApp()"></button>
+  </div>
+
+  <!-- Hero -->
+  <div class="vw-hero">
+    <div class="vw-eyebrow">Por qué existimos · 2026</div>
+    <h1 class="vw-title">En 2026 no sabes si lo que lees<br>lo escribió una persona que <em>sabe</em> de lo que habla.</h1>
+    <p class="vw-sub">
+      El contenido generado por IA inunda los feeds. Las noticias virales no necesitan ser ciertas para tener millones de visitas.
+      Y los periodistas que sí saben de lo que hablan <strong>no tienen forma de demostrarlo</strong>.
+      NestedNet es la única plataforma donde <strong>la cadena lector–autor–medio es verificable</strong> y tiene datos reales detrás.
+    </p>
+  </div>
+
+  <!-- Three-column metrics grid -->
+  <div class="vw-grid">
+
+    <!-- Reader column -->
+    <div class="vw-col vw-c" id="vw-col-c">
+      <div class="vw-col-label">👤 Reader</div>
+      <div class="vw-metric">
+        <div class="vw-metric-icon">🧭</div>
+        <div class="vw-metric-body">
+          <div class="vw-metric-num">73<sup>%</sup></div>
+          <div class="vw-metric-desc">de noticias virales no superan verificación editorial</div>
+          <div class="vw-metric-delta warn">↑ tendencia creciente</div>
+        </div>
+      </div>
+      <div class="vw-metric">
+        <div class="vw-metric-icon">⏱️</div>
+        <div class="vw-metric-body">
+          <div class="vw-metric-num">4<sup>m</sup></div>
+          <div class="vw-metric-desc">tiempo de lectura real en artículos verificados</div>
+          <div class="vw-metric-delta">vs 42s en redes sociales</div>
+        </div>
+      </div>
+      <div class="vw-metric">
+        <div class="vw-metric-icon">🧠</div>
+        <div class="vw-metric-body">
+          <div class="vw-metric-num">87<sup>%</sup></div>
+          <div class="vw-metric-desc">de readers Nv.5+ recuerdan datos clave al día siguiente</div>
+          <div class="vw-metric-delta">medido 24h post-lectura</div>
+        </div>
+      </div>
+      <div class="vw-metric">
+        <div class="vw-metric-icon">🔥</div>
+        <div class="vw-metric-body">
+          <div class="vw-metric-num">18</div>
+          <div class="vw-metric-desc">días de racha lectora media en usuarios activos</div>
+          <div class="vw-metric-delta">top 10% supera 60 días consecutivos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Publisher column -->
+    <div class="vw-col vw-p" id="vw-col-p">
+      <div class="vw-col-label">🏢 Publisher</div>
+      <div class="vw-metric">
+        <div class="vw-metric-icon">📖</div>
+        <div class="vw-metric-body">
+          <div class="vw-metric-num">4<sup>m</sup></div>
+          <div class="vw-metric-desc">tiempo de lectura real en contenido verificado</div>
+          <div class="vw-metric-delta">vs 1m 12s en medios convencionales</div>
+        </div>
+      </div>
+      <div class="vw-metric">
+        <div class="vw-metric-icon">🔁</div>
+        <div class="vw-metric-body">
+          <div class="vw-metric-num">38<sup>%</sup></div>
+          <div class="vw-metric-desc">tasa de lectores recurrentes · media publishers activos</div>
+          <div class="vw-metric-delta">vs 8% en agregadores estándar</div>
+        </div>
+      </div>
+      <div class="vw-metric">
+        <div class="vw-metric-icon">📊</div>
+        <div class="vw-metric-body">
+          <div class="vw-metric-num">NPS 61</div>
+          <div class="vw-metric-desc">score medio publishers — métrica inexistente en otros agregadores</div>
+          <div class="vw-metric-delta">tú lo ves desde el primer día</div>
+        </div>
+      </div>
+      <div class="vw-metric">
+        <div class="vw-metric-icon">🎯</div>
+        <div class="vw-metric-body">
+          <div class="vw-metric-num">+47<sup>%</sup></div>
+          <div class="vw-metric-desc">más retención con freelancers de afinidad editorial verificada</div>
+          <div class="vw-metric-delta">vs contratación sin historial</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Freelancer column -->
+    <div class="vw-col vw-f" id="vw-col-f">
+      <div class="vw-col-label">✍️ Freelancer</div>
+      <div class="vw-metric">
+        <div class="vw-metric-icon">🚫</div>
+        <div class="vw-metric-body">
+          <div class="vw-metric-num">€0</div>
+          <div class="vw-metric-desc">métricas de audiencia que recibes tras publicar en medios tradicionales</div>
+          <div class="vw-metric-delta warn">invisibilidad total de impacto</div>
+        </div>
+      </div>
+      <div class="vw-metric">
+        <div class="vw-metric-icon">⏱️</div>
+        <div class="vw-metric-body">
+          <div class="vw-metric-num">4<sup>m</sup></div>
+          <div class="vw-metric-desc">tiempo de lectura de los mejores freelancers en plataforma</div>
+          <div class="vw-metric-delta">umbral encargos directos: ≥ 3m 30s</div>
+        </div>
+      </div>
+      <div class="vw-metric">
+        <div class="vw-metric-icon">📈</div>
+        <div class="vw-metric-body">
+          <div class="vw-metric-num">+43<sup>%</sup></div>
+          <div class="vw-metric-desc">más ingresos por artículo con historial verificado</div>
+          <div class="vw-metric-delta">datos medios plataforma NestedNet</div>
+        </div>
+      </div>
+      <div class="vw-metric">
+        <div class="vw-metric-icon">🏆</div>
+        <div class="vw-metric-body">
+          <div class="vw-metric-num">top 22<sup>%</sup></div>
+          <div class="vw-metric-desc">reciben encargos directos sin postularse a briefings</div>
+          <div class="vw-metric-delta">reputación que se construye sola</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Seal -->
+  <div class="vw-seal">
+    <div class="vw-seal-icon">🔐</div>
+    <div class="vw-seal-text">
+      <strong>La cadena de confianza NestedNet:</strong> cada artículo tiene un autor humano verificado con historial real, un Publisher que lo avala editorialmente, y datos de audiencia que demuestran si la gente lo leyó de verdad.
+      <strong>En ningún otro agregador existe esta trazabilidad.</strong>
+    </div>
+  </div>
+
 </div>
 
 <!-- ═══════════════════════════════════════════════════
@@ -2237,135 +2849,152 @@ body.profile-freelancer .sb-item.active{ color: var(--f-l); background: rgba(107
 
 
 <!-- ONBOARDING MODAL (Reader) -->
-<div id="onboarding-overlay" onclick="if(event.target===this)closeOnboarding()">
-  <div id="onboarding-modal">
-    <div class="ob-header">
-      <div class="ob-logo">Nested<span>Net</span></div>
-      <div class="ob-tagline">La plataforma de noticias que premia leer</div>
+<!-- ═══ DIAGNOSIS SCREEN: READER ═══ -->
+<div id="onboarding-overlay" class="diag-overlay diag-reader">
+  <div class="diag-left">
+    <div class="diag-hook-eyebrow">NestedNet · Reader</div>
+    <h1 class="diag-hook-headline">¿Cuándo fue la última vez que terminaste<br><em>un artículo</em> sabiendo lo que aprendiste?</h1>
+    <p class="diag-hook-sub">
+      Cada día consumes decenas de titulares. Pero sin criterio editorial detrás, <strong>no sabes si lo que lees es real</strong> — ni si está escrito por una persona que sabe de lo que habla.<br><br>
+      NestedNet es el único lugar donde cada artículo está respaldado por un periodista verificado y donde <strong>tu dieta informativa tiene un espejo</strong>.
+    </p>
+    <button class="diag-cta-btn diag-cta" onclick="closeDiagReader();setTimeout(()=>navigate('why'),380)">
+      Ver mi diagnóstico lector &nbsp;→
+    </button>
+    <span class="diag-skip-btn" onclick="closeDiagReader()">saltar · entrar al feed</span>
+  </div>
+  <div class="diag-sep-line diag-sep"></div>
+  <div class="diag-right">
+    <div class="diag-right-title">Datos medios · readers NestedNet</div>
+    <div class="diag-stat-grid">
+      <div class="diag-stat-card diag-stat-bg">
+        <div class="diag-stat-num diag-accent">73<sup>%</sup></div>
+        <div class="diag-stat-label">de noticias virales no superan verificación editorial básica</div>
+        <div class="diag-stat-delta warn">↑ problema creciente en 2026</div>
+      </div>
+      <div class="diag-stat-card diag-stat-bg">
+        <div class="diag-stat-num diag-accent">4<sup>m</sup></div>
+        <div class="diag-stat-label">tiempo de lectura medio en artículos verificados NestedNet</div>
+        <div class="diag-stat-delta">vs 42s en redes sociales</div>
+      </div>
+      <div class="diag-stat-card diag-stat-bg">
+        <div class="diag-stat-num diag-accent">87<sup>%</sup></div>
+        <div class="diag-stat-label">de readers en Nv.5+ recuerdan al menos 3 datos del último artículo</div>
+        <div class="diag-stat-delta">medido post-lectura, 24h después</div>
+      </div>
+      <div class="diag-stat-card diag-stat-bg">
+        <div class="diag-stat-num diag-accent">18</div>
+        <div class="diag-stat-label">días de racha lectora media · readers activos</div>
+        <div class="diag-stat-delta">top 10% supera 60 días</div>
+      </div>
     </div>
-    <div class="ob-body">
-      <div class="ob-steps">
-        <div class="ob-step">
-          <div class="ob-step-icon s1">📰</div>
-          <div>
-            <div class="ob-step-label">Paso 1</div>
-            <div class="ob-step-title">Lee contenido verificado, sin publicidad</div>
-            <div class="ob-step-desc">Feed personalizado de fuentes contrastadas. Sin algoritmos de engagement que distorsionen lo que ves.</div>
-          </div>
-        </div>
-        <div class="ob-step">
-          <div class="ob-step-icon s2">🎮</div>
-          <div>
-            <div class="ob-step-label">Paso 2</div>
-            <div class="ob-step-title">Gana XP y sube de nivel</div>
-            <div class="ob-step-desc">Cada artículo leído suma puntos. Completa logros, mantén tu racha diaria y escala el ranking de lectores.</div>
-          </div>
-        </div>
-        <div class="ob-step">
-          <div class="ob-step-icon s3">🔐</div>
-          <div>
-            <div class="ob-step-label">Paso 3</div>
-            <div class="ob-step-title">Desbloquea acceso exclusivo</div>
-            <div class="ob-step-desc">Roundtables con editores, análisis premium y funcionalidades en beta — solo disponibles en NestedNet.</div>
-          </div>
-        </div>
+    <div class="diag-insight diag-stat-bg">
+      <div class="diag-insight-icon">🧠</div>
+      <div class="diag-insight-text">
+        Tu perfil lector se construye artículo a artículo. En 30 días sabrás en qué categorías eres experto, dónde tienes puntos ciegos, y <strong>cómo se compara tu criterio informativo con el de tu red</strong>. Ningún agregador genera esto.
       </div>
-      <div class="ob-free-note">
-        <span style="font-size:18px">🎁</span>
-        <div><strong>Empieza gratis</strong> — 10 artículos/día sin coste. Sin tarjeta requerida.</div>
+    </div>
+    <div class="diag-insight diag-stat-bg" style="animation-delay:.42s">
+      <div class="diag-insight-icon">🔐</div>
+      <div class="diag-insight-text">
+        <strong>Cada artículo publicado en NestedNet tiene un autor humano verificado</strong> detrás — con nombre, historial y métricas de retención reales. Sabes exactamente quién escribió lo que estás leyendo y si la audiencia lo avaló.
       </div>
-      <button class="ob-btn" onclick="closeOnboarding()">Empezar a leer →</button>
-      <span class="ob-skip" onclick="closeOnboarding()">Ya lo conozco, entrar directamente</span>
     </div>
   </div>
 </div>
 
-<!-- ONBOARDING MODAL (Publisher) -->
-<div id="onboarding-pub-overlay" onclick="if(event.target===this)closeOnboardingPub()" style="position:fixed;inset:0;background:rgba(10,8,5,.65);backdrop-filter:blur(4px);z-index:600;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s">
-  <div id="onboarding-pub-modal" style="background:#fff;border-radius:20px;width:100%;max-width:520px;box-shadow:0 24px 64px rgba(139,58,30,.22),0 4px 16px rgba(0,0,0,.08);overflow:hidden;transform:translateY(16px) scale(.97);transition:transform .35s cubic-bezier(.34,1.56,.64,1)">
-    <div style="background:linear-gradient(135deg,#6b1f0a 0%,#8b3a1e 55%,#b85c38 100%);padding:28px 32px 24px;text-align:center;position:relative;overflow:hidden">
-      <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(255,255,255,.1) 0%,transparent 60%)"></div>
-      <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:#fff;letter-spacing:-.5px;margin-bottom:4px;position:relative">Nested<span style="color:#fca97a">Net</span></div>
-      <div style="font-size:13px;color:rgba(255,255,255,.75);position:relative">Panel de editorial — bienvenido, Publisher</div>
+<!-- ═══ DIAGNOSIS SCREEN: PUBLISHER ═══ -->
+<div id="onboarding-pub-overlay" class="diag-overlay diag-publisher" onclick="if(event.target===this)closeOnboardingPub()">
+  <div class="diag-left">
+    <div class="diag-hook-eyebrow">NestedNet · Publisher</div>
+    <h1 class="diag-hook-headline">Contratas freelancers<br><em>a ciegas.</em><br>Tu audiencia ya sabe quién escribe bien.</h1>
+    <p class="diag-hook-sub">
+      Tienes Google Analytics. Sabes cuántas visitas. Pero <strong>no sabes si alguien leyó el artículo completo</strong>, si volvió al día siguiente, ni si el freelance que contrataste retiene a tu audiencia específica.<br><br>
+      NestedNet te da la única métrica que importa: <strong>comportamiento lector real</strong>, no tráfico.
+    </p>
+    <button class="diag-cta-btn diag-cta" onclick="closeOnboardingPub();setTimeout(()=>navigate('why'),380)">
+      Ver mis métricas de audiencia &nbsp;→
+    </button>
+    <span class="diag-skip-btn" onclick="closeOnboardingPub()">saltar · entrar al panel</span>
+  </div>
+  <div class="diag-sep-line diag-sep"></div>
+  <div class="diag-right">
+    <div class="diag-right-title">Benchmarks · publishers activos en plataforma</div>
+    <div class="diag-stat-grid">
+      <div class="diag-stat-card diag-stat-bg">
+        <div class="diag-stat-num diag-accent">4<sup>m</sup></div>
+        <div class="diag-stat-label">tiempo medio de lectura real en contenido verificado NestedNet</div>
+        <div class="diag-stat-delta">vs 1m 12s en medios digitales convencionales</div>
+      </div>
+      <div class="diag-stat-card diag-stat-bg">
+        <div class="diag-stat-num diag-accent">38<sup>%</sup></div>
+        <div class="diag-stat-label">tasa de lectores recurrentes · media publishers activos</div>
+        <div class="diag-stat-delta">vs 8% en agregadores de noticias estándar</div>
+      </div>
+      <div class="diag-stat-card diag-stat-bg">
+        <div class="diag-stat-num diag-accent">61</div>
+        <div class="diag-stat-label">NPS medio de publishers — medido sobre lectores reales</div>
+        <div class="diag-stat-delta">métrica inexistente en cualquier otro agregador</div>
+      </div>
+      <div class="diag-stat-card diag-stat-bg">
+        <div class="diag-stat-num diag-accent">+47<sup>%</sup></div>
+        <div class="diag-stat-label">más retención en artículos de freelancers con afinidad editorial verificada</div>
+        <div class="diag-stat-delta">vs contratación sin filtro de historial</div>
+      </div>
     </div>
-    <div style="padding:28px 32px 24px">
-      <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:26px">
-        <div style="display:flex;align-items:flex-start;gap:16px;animation:ob-fade-in .4s ease both">
-          <div style="width:46px;height:46px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#fde8d8,#fca97a)">📊</div>
-          <div>
-            <div style="font-size:12px;font-weight:700;color:#b85c38;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Inteligencia editorial</div>
-            <div style="font-size:14px;font-weight:700;color:#1a0f08;margin-bottom:3px">NPS, engagement y métricas de audiencia</div>
-            <div style="font-size:12px;color:#6b4535;line-height:1.55">Datos en tiempo real sobre cómo tus lectores interactúan con tu contenido. Alertas automáticas cuando algo cambia.</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:16px;animation:ob-fade-in .4s .1s ease both">
-          <div style="width:46px;height:46px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#d1fae5,#a7f3d0)">🤝</div>
-          <div>
-            <div style="font-size:12px;font-weight:700;color:#b85c38;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Marketplace de talento</div>
-            <div style="font-size:14px;font-weight:700;color:#1a0f08;margin-bottom:3px">Contrata freelancers verificados</div>
-            <div style="font-size:12px;color:#6b4535;line-height:1.55">Periodistas con historial de lecturas y métricas reales. Publica briefings y recibe propuestas de talento alineado editorialmente.</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:16px;animation:ob-fade-in .4s .2s ease both">
-          <div style="width:46px;height:46px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#fef3c7,#fde68a)">🎯</div>
-          <div>
-            <div style="font-size:12px;font-weight:700;color:#b85c38;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Audiencia gamificada</div>
-            <div style="font-size:14px;font-weight:700;color:#1a0f08;margin-bottom:3px">Lectores que leen, no que scrollean</div>
-            <div style="font-size:12px;color:#6b4535;line-height:1.55">Tu contenido llega a usuarios que ganan XP leyendo. Mayor tiempo de lectura, mayor retención, mayor NPS.</div>
-          </div>
-        </div>
+    <div class="diag-insight diag-stat-bg">
+      <div class="diag-insight-icon">💡</div>
+      <div class="diag-insight-text">
+        <strong>La tasa de relectura</strong> — el porcentaje de lectores que vuelven al mismo artículo más de una vez — es la prueba de que un contenido tiene profundidad real. <strong>Ningún publisher la tiene hoy. Tú sí, desde el primer día.</strong>
       </div>
-      <div style="background:#fff8f3;border:1px solid #fca97a;border-radius:12px;padding:11px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;font-size:12px;color:#7c2d12">
-        <span style="font-size:18px">🏢</span>
-        <div><strong>Plan Publisher</strong> — 14 días de prueba gratuita. Sin compromisos.</div>
-      </div>
-      <button onclick="closeOnboardingPub()" style="width:100%;padding:14px;background:linear-gradient(135deg,#6b1f0a,#8b3a1e);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(139,58,30,.4);transition:box-shadow .18s,transform .18s" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">Explorar el panel editorial →</button>
-      <span onclick="closeOnboardingPub()" style="display:block;text-align:center;margin-top:12px;font-size:12px;color:#9a9a94;cursor:pointer">Entrar directamente</span>
     </div>
   </div>
 </div>
 
-<!-- ONBOARDING MODAL (Freelancer) -->
-<div id="onboarding-fl-overlay" onclick="if(event.target===this)closeOnboardingFl()" style="position:fixed;inset:0;background:rgba(8,5,14,.65);backdrop-filter:blur(4px);z-index:600;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s">
-  <div id="onboarding-fl-modal" style="background:#fff;border-radius:20px;width:100%;max-width:520px;box-shadow:0 24px 64px rgba(107,33,168,.22),0 4px 16px rgba(0,0,0,.08);overflow:hidden;transform:translateY(16px) scale(.97);transition:transform .35s cubic-bezier(.34,1.56,.64,1)">
-    <div style="background:linear-gradient(135deg,#3b0764 0%,#6b21a8 55%,#9333ea 100%);padding:28px 32px 24px;text-align:center;position:relative;overflow:hidden">
-      <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(255,255,255,.1) 0%,transparent 60%)"></div>
-      <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:#fff;letter-spacing:-.5px;margin-bottom:4px;position:relative">Nested<span style="color:#d8b4fe">Net</span></div>
-      <div style="font-size:13px;color:rgba(255,255,255,.75);position:relative">Studio editorial — bienvenido, Freelancer</div>
+<!-- ═══ DIAGNOSIS SCREEN: FREELANCER ═══ -->
+<div id="onboarding-fl-overlay" class="diag-overlay diag-freelancer" onclick="if(event.target===this)closeOnboardingFl()">
+  <div class="diag-left">
+    <div class="diag-hook-eyebrow">NestedNet · Freelancer</div>
+    <h1 class="diag-hook-headline">Escribes bien.<br><em>Pero nadie</em><br>puede demostrarlo.</h1>
+    <p class="diag-hook-sub">
+      Cobras entre 40€ y 150€ por artículo. Tardas días en producirlo. Y cuando se publica, <strong>no sabes si lo leyeron 200 o 20.000 personas</strong>.<br><br>
+      Tu portfolio es un PDF con links que ya no funcionan. NestedNet es el primer lugar donde <strong>tus datos de audiencia hablan por ti</strong> — y donde los Publishers los ven antes de contactarte.
+    </p>
+    <button class="diag-cta-btn diag-cta" onclick="closeDiagFl();setTimeout(()=>navigate('why'),380)">
+      Construir mi reputación editorial &nbsp;→
+    </button>
+    <span class="diag-skip-btn" onclick="closeDiagFl()">saltar · abrir mi studio</span>
+  </div>
+  <div class="diag-sep-line diag-sep"></div>
+  <div class="diag-right">
+    <div class="diag-right-title">Realidad del mercado freelance · España 2026</div>
+    <div class="diag-stat-grid">
+      <div class="diag-stat-card diag-stat-bg">
+        <div class="diag-stat-num diag-accent">€0</div>
+        <div class="diag-stat-label">métricas de audiencia que recibes de medios tradicionales por artículo publicado</div>
+        <div class="diag-stat-delta warn">invisibilidad total de impacto</div>
+      </div>
+      <div class="diag-stat-card diag-stat-bg">
+        <div class="diag-stat-num diag-accent">4<sup>m</sup></div>
+        <div class="diag-stat-label">tiempo de lectura medio de los mejores freelancers en NestedNet</div>
+        <div class="diag-stat-delta">tu próximo encargo depende de este número</div>
+      </div>
+      <div class="diag-stat-card diag-stat-bg">
+        <div class="diag-stat-num diag-accent">+43<sup>%</sup></div>
+        <div class="diag-stat-label">más ingresos por artículo en freelancers con historial verificado vs sin él</div>
+        <div class="diag-stat-delta">datos medios · plataforma NestedNet</div>
+      </div>
+      <div class="diag-stat-card diag-stat-bg">
+        <div class="diag-stat-num diag-accent">top<br><span style="font-size:28px">22<sup>%</sup></span></div>
+        <div class="diag-stat-label">de freelancers reciben encargos directos sin postularse a briefings</div>
+        <div class="diag-stat-delta">umbral: tiempo lectura ≥ 3m 30s</div>
+      </div>
     </div>
-    <div style="padding:28px 32px 24px">
-      <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:26px">
-        <div style="display:flex;align-items:flex-start;gap:16px;animation:ob-fade-in .4s ease both">
-          <div style="width:46px;height:46px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#f3e8ff,#d8b4fe)">✍️</div>
-          <div>
-            <div style="font-size:12px;font-weight:700;color:#9333ea;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Tu studio</div>
-            <div style="font-size:14px;font-weight:700;color:#120824;margin-bottom:3px">Escribe, edita y publica con medios</div>
-            <div style="font-size:12px;color:#5b2d8e;line-height:1.55">Crea artículos en colaboración con Publishers verificados. Co-etiqueta, comparte autoría y construye tu historial editorial.</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:16px;animation:ob-fade-in .4s .1s ease both">
-          <div style="width:46px;height:46px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#d1fae5,#a7f3d0)">💼</div>
-          <div>
-            <div style="font-size:12px;font-weight:700;color:#9333ea;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Marketplace</div>
-            <div style="font-size:14px;font-weight:700;color:#120824;margin-bottom:3px">Encargos de medios reales</div>
-            <div style="font-size:12px;color:#5b2d8e;line-height:1.55">Briefings exclusivos de Publishers que no encontrarás en ningún otro canal. Aplica en segundos con tu portafolio automático.</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:16px;animation:ob-fade-in .4s .2s ease both">
-          <div style="width:46px;height:46px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,#fef3c7,#fde68a)">📈</div>
-          <div>
-            <div style="font-size:12px;font-weight:700;color:#9333ea;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px">Reputación</div>
-            <div style="font-size:14px;font-weight:700;color:#120824;margin-bottom:3px">Portafolio con métricas de audiencia real</div>
-            <div style="font-size:12px;color:#5b2d8e;line-height:1.55">Cada artículo publicado suma al ranking de freelancers. Los Publishers ven tus lecturas, NPS y afinidad temática.</div>
-          </div>
-        </div>
+    <div class="diag-insight diag-stat-bg">
+      <div class="diag-insight-icon">🏆</div>
+      <div class="diag-insight-text">
+        En NestedNet, <strong>tu reputación se construye artículo a artículo</strong> — con datos de lecturas, tiempo de permanencia e ingresos que avalan tu perfil ante nuevos Publishers. Es el único portfolio que se actualiza solo y que ninguna plataforma freelance genera de forma automática.
       </div>
-      <div style="background:#faf5ff;border:1px solid #d8b4fe;border-radius:12px;padding:11px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;font-size:12px;color:#4a1d96">
-        <span style="font-size:18px">✨</span>
-        <div><strong>Empieza gratis</strong> — aplica a encargos sin coste. Comisión solo al cobrar.</div>
-      </div>
-      <button onclick="closeOnboardingFl()" style="width:100%;padding:14px;background:linear-gradient(135deg,#3b0764,#6b21a8);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(107,33,168,.4);transition:box-shadow .18s,transform .18s" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">Abrir mi Studio →</button>
-      <span onclick="closeOnboardingFl()" style="display:block;text-align:center;margin-top:12px;font-size:12px;color:#9a9a94;cursor:pointer">Entrar directamente</span>
     </div>
   </div>
 </div>
@@ -2391,7 +3020,7 @@ body.profile-freelancer .sb-item.active{ color: var(--f-l); background: rgba(107
     'socialTab','friendAction','selectDraft','progTab','mkTab','analyticsTab',
     'openSearchDropdown','closeSearchDropdown','toggleCollapse','toggleNotif',
     'toggleHeaderDropdown','closeHeaderDropdown','showUpgradeModal',
-    'showPortfolioModal','showContactModal','switchRankPeriod','showAdvancedFilters','showFollowAuthorModal','showPubArticleModal','showNewArticleModal','createNewArticle','showSourceActionModal','studioSave','studioUpdateMeta','filterFreelancers',
+    'showPortfolioModal','showContactModal','switchRankPeriod','showAdvancedFilters','showFollowAuthorModal','showPubArticleModal','showNewArticleModal','createNewArticle','showSourceActionModal','studioSave','studioUpdateMeta','filterFreelancers','closeDiagReader','closeDiagFl','closeOnboarding','closeOnboardingPub','closeOnboardingFl','showWhyScreen','launchApp',
     'filterUsers','resolveModItem','showAddFeedModal','handleSearch',
     'switchReadsPeriod','switchSharesPeriod','switchPubDailyPeriod','switchPubTopPeriod',
     'switchFlDailyPeriod','switchFlTopPeriod'];
@@ -2615,14 +3244,14 @@ function loginAs(profile) {
   const user = DB.users.find(u => u.profile === profile);
   if (!user) return;
   currentUser = user;
-  mountApp();
+  showWhyScreen();
 }
 
 function doLogin() {
   const email = document.getElementById('login-email').value;
   const user = DB.users.find(u => u.email === email) || DB.users[0];
   currentUser = user;
-  mountApp();
+  showWhyScreen();
 }
 
 function doRegister() {
@@ -2630,7 +3259,7 @@ function doRegister() {
   const profile = document.getElementById('reg-profile').value;
   currentUser = { id: 99, name, initials: name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(), profile, plan:'free', xp:0, level:1, streak:0 };
   showToast('✅ Cuenta creada — bienvenido a NestedNet');
-  mountApp();
+  showWhyScreen();
 }
 
 function switchAuthRole(r) {
@@ -2733,6 +3362,68 @@ function updateHeaderXP() {
     if (lvlEl) lvlEl.textContent = 'Nv.' + (currentUser.level||5);
   }
 }
+
+/* ── view-why: show/launch ─────────────────────────────────────── */
+const _whyProfileCfg = {
+  customer:   { chip: '👤 Reader',     chipBg: 'rgba(79,70,229,.2)',  chipColor: '#a5b4fc', btnBg: 'linear-gradient(135deg,#3730a3,#6366f1)', btnShadow: 'rgba(79,70,229,.4)',  btnLabel: 'Entrar al feed →',     activeCol: 'vw-active-c' },
+  publisher:  { chip: '🏢 Publisher',  chipBg: 'rgba(180,83,9,.2)',   chipColor: '#fbbf24', btnBg: 'linear-gradient(135deg,#7c2d12,#b45309)', btnShadow: 'rgba(180,83,9,.4)',   btnLabel: 'Ver mis métricas →',   activeCol: 'vw-active-p' },
+  freelancer: { chip: '✍️ Freelancer', chipBg: 'rgba(147,51,234,.2)', chipColor: '#c084fc', btnBg: 'linear-gradient(135deg,#581c87,#9333ea)', btnShadow: 'rgba(147,51,234,.4)', btnLabel: 'Entrar al feed →',     activeCol: 'vw-active-f' },
+  admin:      { chip: '🛡️ Admin',      chipBg: 'rgba(220,38,38,.2)',  chipColor: '#fca5a5', btnBg: 'linear-gradient(135deg,#7f1d1d,#dc2626)', btnShadow: 'rgba(220,38,38,.4)',  btnLabel: 'Entrar al panel →',    activeCol: '' },
+};
+
+function showWhyScreen() {
+  const cfg = _whyProfileCfg[currentUser.profile] || _whyProfileCfg.customer;
+
+  // Profile chip
+  const chip = document.getElementById('vw-profile-chip');
+  if (chip) {
+    chip.textContent = cfg.chip;
+    chip.style.cssText = `background:${cfg.chipBg};color:${cfg.chipColor};border:1px solid ${cfg.chipColor.replace(')', ',.35)')};`;
+  }
+
+  // Enter button
+  const btn = document.getElementById('vw-enter-btn');
+  if (btn) {
+    btn.textContent = cfg.btnLabel;
+    btn.style.cssText = `background:${cfg.btnBg};box-shadow:0 4px 20px ${cfg.btnShadow};`;
+  }
+
+  // Highlight active profile column, reset others
+  ['vw-col-c','vw-col-p','vw-col-f'].forEach(id => {
+    const col = document.getElementById(id);
+    if (!col) return;
+    col.classList.remove('vw-active-c','vw-active-p','vw-active-f');
+    if (cfg.activeCol) {
+      const colMap = { customer:'vw-col-c', publisher:'vw-col-p', freelancer:'vw-col-f' };
+      if (id === colMap[currentUser.profile]) col.classList.add(cfg.activeCol);
+    }
+  });
+
+  // Hide auth, show view-why with entering animation
+  document.getElementById('view-auth').classList.remove('active');
+  const vw = document.getElementById('view-why');
+  vw.classList.remove('leaving');
+  vw.classList.add('active','entering');
+  vw.addEventListener('animationend', () => vw.classList.remove('entering'), { once: true });
+}
+
+function launchApp() {
+  const vw = document.getElementById('view-why');
+  vw.classList.add('leaving');
+  vw.addEventListener('animationend', () => {
+    vw.classList.remove('active','leaving');
+    // Ensure auth view is fully out of flow so the app starts at the top
+    const auth = document.getElementById('view-auth');
+    if (auth) { auth.style.display = 'none'; }
+    window.scrollTo(0, 0);
+    mountApp();
+    // Reset main-content scroll after app builds
+    requestAnimationFrame(() => {
+      const mc = document.getElementById('main-content');
+      if (mc) { mc.scrollTop = 0; mc.focus({ preventScroll: true }); }
+    });
+  }, { once: true });
+}
 function mountApp() {
   // Apply profile theme to body
   document.body.className = 'profile-' + currentUser.profile;
@@ -2764,50 +3455,34 @@ function mountApp() {
   buildSidebar();
   buildContent();
 
-  // Show profile-specific onboarding
-  if (currentUser.profile === 'customer') {
-    setTimeout(() => {
-      const ob = document.getElementById('onboarding-overlay');
-      if (ob) ob.classList.add('open');
-    }, 400);
-  } else if (currentUser.profile === 'publisher') {
-    setTimeout(() => {
-      const el = document.getElementById('onboarding-pub-overlay');
-      const modal = document.getElementById('onboarding-pub-modal');
-      if (el) { el.style.opacity = '1'; el.style.pointerEvents = 'all'; }
-      if (modal) modal.style.transform = 'translateY(0) scale(1)';
-    }, 400);
-  } else if (currentUser.profile === 'freelancer') {
-    setTimeout(() => {
-      const el = document.getElementById('onboarding-fl-overlay');
-      const modal = document.getElementById('onboarding-fl-modal');
-      if (el) { el.style.opacity = '1'; el.style.pointerEvents = 'all'; }
-      if (modal) modal.style.transform = 'translateY(0) scale(1)';
-    }, 400);
-  }
+  // Diagnosis screen now shown via showWhyScreen() before mountApp()
 }
 
-function closeOnboarding() {
+function closeOnboarding() { closeDiagReader(); }
+function closeDiagReader() {
   const ob = document.getElementById('onboarding-overlay');
   if (ob) {
-    ob.style.transition = 'opacity .25s';
+    ob.style.transition = 'opacity .35s ease';
     ob.style.opacity = '0';
-    setTimeout(() => { ob.classList.remove('open'); ob.style.opacity = ''; }, 260);
+    setTimeout(() => { ob.classList.remove('open'); ob.style.opacity = ''; }, 370);
   }
 }
 
 function closeOnboardingPub() {
   const el = document.getElementById('onboarding-pub-overlay');
   if (!el) return;
+  el.style.transition = 'opacity .35s ease';
   el.style.opacity = '0';
-  setTimeout(() => { el.style.pointerEvents = 'none'; }, 260);
+  setTimeout(() => { el.classList.remove('open'); el.style.pointerEvents = 'none'; }, 370);
 }
 
-function closeOnboardingFl() {
+function closeOnboardingFl() { closeDiagFl(); }
+function closeDiagFl() {
   const el = document.getElementById('onboarding-fl-overlay');
   if (!el) return;
+  el.style.transition = 'opacity .35s ease';
   el.style.opacity = '0';
-  setTimeout(() => { el.style.pointerEvents = 'none'; }, 260);
+  setTimeout(() => { el.classList.remove('open'); el.style.pointerEvents = 'none'; }, 370);
 }
 
 function buildSidebar() {
@@ -2829,9 +3504,9 @@ function buildSidebar() {
     customer: `
       <div class="sb-section">Principal</div>
       ${sbItem('feed','📰','Mi Feed','c','feed')}
-      ${sbItem('exclusive','🔐','Mi Contenido Exclusivo','c','exclusive')}
       ${sbItem('social','👥','Mi Red','c','social')}
       ${sbItem('leaderboard','🏆','Mi Progreso','c','leaderboard')}
+      ${sbItem('exclusive','🔐','Mi Contenido Exclusivo','c','exclusive')}
       <div class="sb-section">Perfil</div>
       ${sbItem('analytics','📊','Mis Reportes','c','analytics')}
       ${sbItem('newsletters','📬','Mis Newsletters','c','newsletters')}
@@ -2958,6 +3633,131 @@ function buildContent() {
    PAGE BUILDERS
 ═══════════════════════════════════════════════════ */
 
+
+function buildWhyPage() {
+  return `<div class="page" id="page-why">
+
+    <!-- Hero -->
+    <div class="why-hero">
+      <div class="why-hero-eyebrow">NestedNet · Por qué existimos</div>
+      <h1 class="why-hero-title">En 2026 no sabes si lo que lees<br>lo escribió una persona que <em>sabe</em> de lo que habla.</h1>
+      <p class="why-hero-sub">
+        El contenido generado por IA inunda los feeds. Las noticias virales no necesitan ser ciertas para tener millones de visitas.
+        Y los periodistas que sí saben de lo que hablan <strong>no tienen forma de demostrarlo</strong>.<br>
+        NestedNet es la única plataforma donde la cadena — lector, autor, medio — es verificable y tiene datos reales detrás.
+      </p>
+    </div>
+
+    <!-- Reader section -->
+    <div class="why-section">
+      <div class="why-section-label" style="color:#818cf8">
+        👤 Para el Reader
+      </div>
+      <div class="why-cards">
+        <div class="why-card why-c">
+          <div class="why-card-icon">🧭</div>
+          <div class="why-card-num">73<sup>%</sup></div>
+          <div class="why-card-label">de noticias virales no superan verificación editorial básica</div>
+          <div class="why-card-delta warn">↑ tendencia creciente en 2026</div>
+        </div>
+        <div class="why-card why-c">
+          <div class="why-card-icon">⏱️</div>
+          <div class="why-card-num">4<sup>m</sup></div>
+          <div class="why-card-label">tiempo de lectura real en artículos verificados NestedNet</div>
+          <div class="why-card-delta">vs 42 segundos en redes sociales</div>
+        </div>
+        <div class="why-card why-c">
+          <div class="why-card-icon">🧠</div>
+          <div class="why-card-num">87<sup>%</sup></div>
+          <div class="why-card-label">de readers Nv.5+ recuerdan datos clave al día siguiente</div>
+          <div class="why-card-delta">medido 24h post-lectura</div>
+        </div>
+        <div class="why-card why-c">
+          <div class="why-card-icon">🔥</div>
+          <div class="why-card-num">18</div>
+          <div class="why-card-label">días de racha lectora media · readers activos en plataforma</div>
+          <div class="why-card-delta">top 10% supera 60 días consecutivos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Publisher section -->
+    <div class="why-section">
+      <div class="why-section-label" style="color:#fbbf24">
+        🏢 Para el Publisher
+      </div>
+      <div class="why-cards">
+        <div class="why-card why-p">
+          <div class="why-card-icon">📖</div>
+          <div class="why-card-num">4<sup>m</sup></div>
+          <div class="why-card-label">tiempo de lectura real en contenido verificado NestedNet</div>
+          <div class="why-card-delta">vs 1m 12s en medios digitales convencionales</div>
+        </div>
+        <div class="why-card why-p">
+          <div class="why-card-icon">🔁</div>
+          <div class="why-card-num">38<sup>%</sup></div>
+          <div class="why-card-label">tasa de lectores recurrentes · media publishers activos</div>
+          <div class="why-card-delta">vs 8% en agregadores estándar</div>
+        </div>
+        <div class="why-card why-p">
+          <div class="why-card-icon">📊</div>
+          <div class="why-card-num">NPS<br><span style="font-size:32px">61</span></div>
+          <div class="why-card-label">score medio de publishers — métrica inexistente en otros agregadores</div>
+          <div class="why-card-delta">tú lo ves desde el primer día</div>
+        </div>
+        <div class="why-card why-p">
+          <div class="why-card-icon">🎯</div>
+          <div class="why-card-num">+47<sup>%</sup></div>
+          <div class="why-card-label">más retención con freelancers de afinidad editorial verificada</div>
+          <div class="why-card-delta">vs contratación sin historial</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Freelancer section -->
+    <div class="why-section">
+      <div class="why-section-label" style="color:#c084fc">
+        ✍️ Para el Freelancer
+      </div>
+      <div class="why-cards">
+        <div class="why-card why-f">
+          <div class="why-card-icon">🚫</div>
+          <div class="why-card-num">€0</div>
+          <div class="why-card-label">métricas de audiencia que recibes tras publicar en medios tradicionales</div>
+          <div class="why-card-delta warn">invisibilidad total de impacto</div>
+        </div>
+        <div class="why-card why-f">
+          <div class="why-card-icon">⏱️</div>
+          <div class="why-card-num">4<sup>m</sup></div>
+          <div class="why-card-label">tiempo de lectura de los mejores freelancers en la plataforma</div>
+          <div class="why-card-delta">umbral para recibir encargos directos: ≥ 3m 30s</div>
+        </div>
+        <div class="why-card why-f">
+          <div class="why-card-icon">📈</div>
+          <div class="why-card-num">+43<sup>%</sup></div>
+          <div class="why-card-label">más ingresos por artículo con historial verificado frente a sin él</div>
+          <div class="why-card-delta">datos medios plataforma NestedNet</div>
+        </div>
+        <div class="why-card why-f">
+          <div class="why-card-icon">🏆</div>
+          <div class="why-card-num">top<br><span style="font-size:28px">22<sup>%</sup></span></div>
+          <div class="why-card-label">reciben encargos directos sin necesidad de postularse</div>
+          <div class="why-card-delta">reputación que se construye sola</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seal -->
+    <div class="why-seal">
+      <div class="why-seal-icon">🔐</div>
+      <div class="why-seal-text">
+        <strong>La cadena de confianza NestedNet:</strong> cada artículo publicado tiene un autor humano verificado con historial real, un Publisher que lo avala editorialmente, y datos de audiencia que demuestran si la gente lo leyó de verdad.
+        <strong>En ningún otro agregador existe esta trazabilidad.</strong>
+      </div>
+    </div>
+
+  </div>`;
+}
 function buildFeedPage() {
   const catColors = { tecnología:'var(--blue-l)', negocios:'var(--amber-l)', ciencia:'var(--green-l)', deportes:'#ffe4e6', política:'var(--f-l)', default:'var(--bg4)' };
   const catTextColors = { tecnología:'#3b82f6', negocios:'var(--amber)', ciencia:'var(--green)', deportes:'#f43f5e', política:'var(--f)', default:'var(--txt3)' };
@@ -6354,10 +7154,27 @@ function goHome() {
 
 function logout() {
   currentUser = null;
-  document.getElementById('view-app').classList.remove('active');
-  document.getElementById('view-app').style.display = 'none';
-  document.getElementById('view-auth').classList.add('active');
-  document.getElementById('main-content').innerHTML = '';
+
+  // Hide app + why screens
+  const app = document.getElementById('view-app');
+  app.classList.remove('active');
+  app.style.display = 'none';
+  const vw = document.getElementById('view-why');
+  if (vw) { vw.classList.remove('active','entering','leaving'); }
+
+  // Reset main content so next login rebuilds cleanly
+  const mc = document.getElementById('main-content');
+  if (mc) mc.innerHTML = '';
+
+  // Reset body theme class so login screen has no leftover profile colours
+  document.body.className = '';
+
+  // Restore auth screen to its initial state
+  const auth = document.getElementById('view-auth');
+  auth.style.display = '';          // remove forced display:none from launchApp
+  auth.classList.add('active');
+  window.scrollTo(0, 0);
+
   showToast('👋 Sesión cerrada correctamente');
 }
 
@@ -6749,7 +7566,7 @@ function mktPanelTab(tab) {
   z-index: 99999;
 ">
   <a
-    href="https://app.prolific.com/submissions/complete?cc=XXXXXXXX"
+    href="https://docs.google.com/forms/d/e/1yYSrbvqxZ96k9Z8yFVN-KFw8EOvU3rxVSprhIAgyyY0/viewform"
     id="prolific-link"
     style="
       display: block;
